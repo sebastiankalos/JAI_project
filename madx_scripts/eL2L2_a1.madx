@@ -1,0 +1,136 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// ARC 1 beamline definition
+// =====================================================================
+//
+// This code is originally written by A. De Santic, C. Miraldi, now modified by Sebastian Kalos
+// It now includes more annotation with (hopefully) better explanations of what various statements mean
+//
+// CONTACT: sebastian.kalos@physics.ox.ac.uk
+// ---------------------------------------------------------------------
+// GENERAL NOTES:
+// A1 in an element name generally refers to an element in ARC 1
+//
+// if an element is to be repeated, it is copied instead and labelled by a different name, so that each element has a unique identifier
+// ---------------------------------------------------------------------
+
+// ---------------------------------------------------------------------
+// here come the BENDING MAGNETS
+
+// definition of a BENDING magnet B1:
+ANGLEBc = 10*pi/180; //bend angle is 10 degrees
+//syntax for a bending magnet here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S3 
+// ANGLE is for bending angle (logically), E1 the rotation angle for the entrance pole face, E2 the rotation angle for the exit pole face
+BEL2L2_A1_B1: RBEND, ANGLE:= ANGLEBc, E1:= 0.*ANGLEBc, E2:= 0.*ANGLEBc, L = 1.50641 ;
+BEL2L2_A1_B01: BEL2L2_A1_B1; // make an identical copy of a bending magnet, with a different name
+BEL2L2_A1_B03: BEL2L2_A1_B1; // again
+
+// definition of a BENDING magnet B2:
+ANGLEBcs = 10*pi/180;  
+BEL2L2_A1_B2 : RBEND, ANGLE:= ANGLEBcs, E1:= 0.*ANGLEBcs, E2:= 0.*ANGLEBcs, L = 0.8648;
+BEL2L2_A1_B02: BEL2L2_A1_B2;
+
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+
+ DEL2L2_A1_D01 : DRIFT, L = 0.280; // drift space 1
+ DEL2L2_A1_D14: DEL2L2_A1_D01; // drift space 14 (copy of drift 1)
+ 
+ DEL2L2_A1_D02 : DRIFT, L = 0.35696; // drift space 2
+ DEL2L2_A1_D13: DEL2L2_A1_D02; // drift space 13 (copy of drift 2)
+ 
+ DEL2L2_A1_D03 : DRIFT, L = 1.176125; // drift space 3
+ DEL2L2_A1_D12: DEL2L2_A1_D03; // drift space 12 (copy of drift 3)
+ 
+ DEL2L2_A1_D04 : DRIFT, L = 0.05; // drift space 4
+ DEL2L2_A1_D11: DEL2L2_A1_D04; // drift space 11 (copy of drift 4)
+ 
+ DEL2L2_A1_D05 : DRIFT, L = 0.872626; // drift space 5
+ DEL2L2_A1_D10: DEL2L2_A1_D05; // drift space 10 (copy of drift 5)
+ 
+ DEL2L2_A1_D06 : DRIFT, L = 0.05; // drift space 6
+ DEL2L2_A1_D09: DEL2L2_A1_D06; // drift space 9 (copy of drift 6)
+ 
+ DEL2L2_A1_D07 : DRIFT, L = 2.4016866; // drift space 7
+ DEL2L2_A1_D08 : DEL2L2_A1_D07; //drift space 8 (copy of drift 7)
+
+// note the symmetry of the drift copies!
+
+// ---------------------------------------------------------------------
+// here come the quadrupoles: K1 is the normal (not skew) quadrupole coefficient in the multipole expansion
+// aka K1 is the quadrupole gradient normalized by B\rho. L is the length in meters
+// syntax of quadrupoles here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S5 
+
+// defocusing quadrupole 1:
+ QEL2L2_A1_QD1: QUADRUPOLE, K1 = -9.839606238 , L = 0.10;
+ QEL2L2_A1_QD01: QEL2L2_A1_QD1; //make identical copy with another name
+ QEL2L2_A1_QD04: QEL2L2_A1_QD1; //make identical copy with another name
+ 
+// defocusing quadrupole 2:
+ QEL2L2_A1_QD2: QUADRUPOLE, K1 = -1.905370698 , L = 0.20;
+ QEL2L2_A1_QD02: QEL2L2_A1_QD2; //make identical copy with another name
+ QEL2L2_A1_QD03: QEL2L2_A1_QD2;
+
+// focusing quadrupole 1:
+ QEL2L2_A1_QF1: QUADRUPOLE, K1 =  7.281041123 , L = 0.20;
+ QEL2L2_A1_QF01: QEL2L2_A1_QF1; //make identical copy with another name
+ QEL2L2_A1_QF04: QEL2L2_A1_QF1;
+
+// focusing quadrupole 2: 
+ QEL2L2_A1_QF2: QUADRUPOLE, K1 =  4.62251325 , L = 0.20;
+ QEL2L2_A1_QF02: QEL2L2_A1_QF2; //make identical copy with another name
+ QEL2L2_A1_QF03: QEL2L2_A1_QF2;
+
+// --------------------------------------------------------------------- 
+// here come sextupoles: K2 is the second coefficient in the multipole expansion.
+// syntax here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S6 
+
+// focusing sextupole: 
+ SEL2L2_A1_SF1 : SEXTUPOLE, K2 = 44.29378125 , L = 0.15;
+ SEL2L2_A1_SF01: SEL2L2_A1_SF1; //make identical copy with another name
+ SEL2L2_A1_SF02: SEL2L2_A1_SF1;
+
+// defocusing sextupole: 
+ SEL2L2_A1_SD1 : SEXTUPOLE, K2 = -58.73770844 , L = 0.15; 
+ SEL2L2_A1_SD01: SEL2L2_A1_SD1; //make identical copy with another name
+ SEL2L2_A1_SD02: SEL2L2_A1_SD1;
+ 
+ 
+// --------------------------------------------------------------------- 
+// here comes the actual definition a "cell" within ARC 1, using the elements defined above
+// syntax of a beamline here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch13
+ EL2L2_A1_TBACELL: LINE=(
+		 QEL2L2_A1_QD01, // defocusing quad 1
+ 		 DEL2L2_A1_D01,  // drift 1
+ 		 QEL2L2_A1_QF01, // focusing quad 1
+ 		 DEL2L2_A1_D02,  // drift 2
+ 		 BEL2L2_A1_B01,  // bend 1
+ 		 DEL2L2_A1_D03,  // drift 3
+ 		 QEL2L2_A1_QF02, // focusing quad 2
+ 		 DEL2L2_A1_D04,  // drift 4
+ 		 SEL2L2_A1_SF01, // focusing sextupole 1
+ 		 DEL2L2_A1_D05,  // drift 5
+ 		 SEL2L2_A1_SD01, // defocusing sextupole 1
+ 		 DEL2L2_A1_D06,  // drift 6
+ 		 QEL2L2_A1_QD02, // defocusing quad 2
+ 		 DEL2L2_A1_D07,  // drift 7
+ 		 BEL2L2_A1_B02,  // bend 2
+ 		 DEL2L2_A1_D08,  // drift 8
+ 		 QEL2L2_A1_QD03, // defocusing quad 3
+ 		 DEL2L2_A1_D09,  // drift 9
+ 		 SEL2L2_A1_SD02, // defocusing sextupole 2
+ 		 DEL2L2_A1_D10,  // drift 10
+ 		 SEL2L2_A1_SF02, // focusing sextupole 2
+ 		 DEL2L2_A1_D11,  // drift 11
+ 		 QEL2L2_A1_QF03, // focusing quad 3
+ 		 DEL2L2_A1_D12,  // drift 12
+ 		 BEL2L2_A1_B03,  // bend 3
+ 		 DEL2L2_A1_D13,  // drift 13
+ 		 QEL2L2_A1_QF04, // focusing quad 4
+ 		 DEL2L2_A1_D14,  // drift 14
+ 		 QEL2L2_A1_QD04  // defocusing quad 4
+		 );
+ 
+EL2L2_A1: LINE=(6*EL2L2_A1_TBACELL); // the ARC 1 beamline is actually six of the "cells" defined above
+
+return;
