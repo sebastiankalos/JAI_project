@@ -47,7 +47,7 @@
 @ TITLE            %01s "s"
 @ ORIGIN           %17s "5.08.01 Darwin 64"
 @ DATE             %08s "05/02/23"
-@ TIME             %08s "18.37.34"
+@ TIME             %08s "20.07.14"
 * NAME               KEYWORD                             S                  L               BETX               ALFX                 DX               BETY               ALFY                 DY              ANGLE                K1L 
 $ %s                 %s                                %le                %le                %le                %le                %le                %le                %le                %le                %le                %le 
  "EL2L2$START"       "MARKER"                             0                  0               9.65                  0                  0              25.72                  0                  0                  0                  0
