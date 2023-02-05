@@ -36,6 +36,9 @@ call,file="eL2L2_ms.madx"; // calling a file with matching sections between arcs
 print, text='LOADING BETA0';
 CALL, FILE='eL2L2_beta0.madx'; //calling a file with Beta-function starting points
 
+print, text='LOADING BUNCH COMPRESSOR';
+CALL, FILE='eL2L2_bunch_compress.madx'; //calling a file with Bunch Compressor Definition (as written by Sebastian Kalos)
+
 // ---------------------------------------------------------------------
 // BEAM definition
 	//Notes for the BEAM definition below:
@@ -57,7 +60,9 @@ eL2L2: LINE=(3*EL2L2_FD,     // 3* fodo cell, as defined in the eL2L2_fodo.madx 
 	     	 EL2L2_MS2_ALL,  // full matching sequence 2 (FODO --> Arc 2), (see file eL2L2_ms.madx)
 	     	 EL2L2_A2,       // 90 degree arc ; ARC 2, defined in eL2L2_a2.madx file (called above)
 	     	 EL2L2_MS3_ALL,	 // full matching line 3, (Arc2 --> Arc 2), see file eL2L2_ms.madx
-	     	 EL2L2_A2        // 90 degree arc again ; ARC 2, defined in eL2L2_a2.madx file (called above)
+	     	 EL2L2_A2,       // 90 degree arc again ; ARC 2, defined in eL2L2_a2.madx file (called above)
+
+			 EL2L2_BC_ALL	 // BUNCH COMPRESSOR (by Sebastian Kalos, see eL2L2_bunch_compressor.madx)
 			 );
 
 // ---------------------------------------------------------------------

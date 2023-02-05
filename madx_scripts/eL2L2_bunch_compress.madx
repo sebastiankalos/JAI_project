@@ -1,0 +1,34 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// Bunch Compressor
+// =====================================================================
+
+// here come the DRIFT spaces:
+
+DEL2L2_BC_D1: DRIFT, L = 2.2; 
+DEL2L2_BC_D2: DRIFT, L = 1.00;
+DEL2L2_BC_D3: DRIFT, L = 1.00;
+DEL2L2_BC_D4: DRIFT, L = 1.00;
+DEL2L2_BC_D5: DRIFT, L = 0.2;
+
+// here come the bending magnets:
+
+ANGLE_BC = 30*pi/180; //bend angle is 10 degrees
+BEL2L2_BC_B1: RBEND, ANGLE:= ANGLE_BC, E1:= 0., E2:= 0., L = 0.5;
+BEL2L2_BC_B2: RBEND, ANGLE:= -ANGLE_BC, E1:= 0., E2:= 0., L = 0.5;
+BEL2L2_BC_B3: RBEND, ANGLE:= -ANGLE_BC, E1:= 0., E2:= 0., L = 0.5;
+BEL2L2_BC_B4: RBEND, ANGLE:= ANGLE_BC, E1:= 0., E2:= 0., L = 0.5;
+
+EL2L2_BC_ALL: LINE=(
+        DEL2L2_BC_D1, // drift 1
+        BEL2L2_BC_B1, // bend 1 
+        DEL2L2_BC_D2, // drift 2
+        BEL2L2_BC_B2, // bend 2
+        DEL2L2_BC_D3, // drift 3
+        BEL2L2_BC_B3, // bend 3
+        DEL2L2_BC_D4, // drift 4
+        BEL2L2_BC_B4, // bend 4
+        DEL2L2_BC_D5  // drift 5
+		 );
+
+return;
