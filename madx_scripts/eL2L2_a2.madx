@@ -110,19 +110,19 @@ SEL2L2_A2_SD02: SEL2L2_A2_SD1;
  		 DEL2L2_A2_D03,  // drift 3
  		 QEL2L2_A2_QF02, // focusing quad 2
  		 DEL2L2_A2_D04,  // drift 4
- 		 SEL2L2_A2_SF01, // focusing sextupole 1
+ 		 //SEL2L2_A2_SF01, // focusing sextupole 1
  		 DEL2L2_A2_D05,  // drift 5
  		 QEL2L2_A2_QD02, // defocusing quad 2
 		 DEL2L2_A2_D06,  // drift 6
-  		 SEL2L2_A2_SD01, // defocusing sextupole 1
+  		 //SEL2L2_A2_SD01, // defocusing sextupole 1
  		 DEL2L2_A2_D07,  // drift 7
  		 BEL2L2_A2_B02,  // bend 2
  		 DEL2L2_A2_D08,  // drift 8
-  		 SEL2L2_A2_SD02, // defocusing sextupole 2
+  		 //SEL2L2_A2_SD02, // defocusing sextupole 2
   		 DEL2L2_A2_D09,  // drift 9
  		 QEL2L2_A2_QD03, // defocusing quadrupole 3
  		 DEL2L2_A2_D10,  // drift 10
- 		 SEL2L2_A2_SF02, // focusing sextupole 2
+ 		 //SEL2L2_A2_SF02, // focusing sextupole 2
  		 DEL2L2_A2_D11,  // drift 11
  		 QEL2L2_A2_QF03, // focusing quadrupole 3
  		 DEL2L2_A2_D12,  // drift 12

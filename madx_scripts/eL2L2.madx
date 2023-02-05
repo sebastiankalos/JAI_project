@@ -5,6 +5,8 @@
 // This code is originally written by A. De Santic, C. Miraldi, now modified by Sebastian Kalos
 // It now includes more annotation with (hopefully) better explanations of what various statements mean
 //
+// also, many commented sections were deleted, and plotting commands originally done via madx were deleted as well
+//
 // Description:
 // the main script to be run, using the command $ ./madx el2L2.madx
 // this file calls beamline definitions of arcs and straight sectons, matching sections between them, and combines them into one big sequence
@@ -88,5 +90,22 @@ savebeta,label=tl_start,place=#S,sequence=eL2L2;
 // alfx,alfy,betx,bety are initial values of alpha and beta functions ; beta has initial values read from file eL2L2_beta0.madx
 twiss,RMATRIX,dx = 0.,dy=0.0, dpy=0.0, dpx = 0.,alfx = 0.,alfy = 0.,betx=eA1_S_betx,bety=eA1_S_bety,
 	     	  file="eL2L2.out",save; // save twiss parameters in file "eL2L2.out"
+
+// ---------------------------------------------------------------------
+// Here starts a PARTICLE TRACKING module (I wanna see the phase space!)
+
+MAKETHIN, SEQUENCE=eL2L2, STYLE=TEAPOT;
+SELECT,	FLAG=makethin, SLICE=3;
+
+TRACK, ONEPASS=true,file="tracking_data/track.out",dump,onetable;
+OBSERVE, PLACE=DEL2L2_BC_D1;
+
+n=0;
+while (n < 5000) {
+start, x= 1e-5*GAUSS(), px=1e-5*GAUSS(), y= 1e-5*GAUSS(), py=1e-5*GAUSS(), T=1e-3*GAUSS(), PT=0.5e-3*GAUSS();
+  n=n+1;
+};
+RUN;
+endtrack;
 
 return;
