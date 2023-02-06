@@ -47,8 +47,8 @@
 @ E66              %le                   1
 @ TITLE            %01s "s"
 @ ORIGIN           %17s "5.08.01 Darwin 64"
-@ DATE             %08s "05/02/23"
-@ TIME             %08s "23.11.45"
+@ DATE             %08s "06/02/23"
+@ TIME             %08s "12.16.44"
 *             NUMBER               TURN                  X                 PX                  Y                 PY                  T                 PT                  S                  E 
 $                %le                %le                %le                %le                %le                %le                %le                %le                %le                %le 
 #segment       1       2    5000       0 start                                                                         

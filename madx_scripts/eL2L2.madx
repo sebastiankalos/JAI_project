@@ -94,18 +94,20 @@ twiss,RMATRIX,dx = 0.,dy=0.0, dpy=0.0, dpx = 0.,alfx = 0.,alfy = 0.,betx=eA1_S_b
 // ---------------------------------------------------------------------
 // Here starts a PARTICLE TRACKING module (I wanna see the phase space!)
 
-MAKETHIN, SEQUENCE=eL2L2, STYLE=TEAPOT;
-SELECT,	FLAG=makethin, SLICE=3;
+MAKETHIN, SEQUENCE=eL2L2, STYLE=TEAPOT; // for tracking (at least the basic one, not PTC), one needs to convert te sequence to thin elements
 
-TRACK, ONEPASS=true,file="tracking_data/track.out",dump,onetable;
-OBSERVE, PLACE=DEL2L2_BC_D1;
+TRACK, ONEPASS=true,file="tracking_data/track.out",dump,onetable; //track particles in phase space
+// onetable flag makes sure all particles are written in a single file, instead of one file per particle
+// onepass = a single pass through the transfer line (not sure if needed but idk if it's otherwise assumed to be periodic)
+
+OBSERVE, PLACE=DEL2L2_BC_D1; // setting observation point (element name) for tracking (apart from start and end, those are recorded by default)
 
 n=0;
-while (n < 5000) {
-start, x= 1e-5*GAUSS(), px=1e-5*GAUSS(), y= 1e-5*GAUSS(), py=1e-5*GAUSS(), T=1e-3*GAUSS(), PT=0.5e-3*GAUSS();
+while (n < 5000) { //generate a ton of particles to be tracked in a while loop (START command)
+start, x= 1e-5*GAUSS(), px=1e-5*GAUSS(), y= 1e-5*GAUSS(), py=1e-5*GAUSS(), T=1e-3*GAUSS(), PT=0.5e-3*GAUSS(); //initialize particle to be tracked
   n=n+1;
 };
-RUN;
-endtrack;
+RUN; //actual command that starts the tracking process
+endtrack; //end tracking
 
-return;
+return; 
