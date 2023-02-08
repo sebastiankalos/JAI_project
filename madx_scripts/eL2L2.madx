@@ -22,7 +22,7 @@ option,echo = false,warn = true; // switch off copying the input to the standard
 // a better explanation of echo, warn statements can be found here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch4.S5
 
 // ---------------------------------------------------------------------
-// Elements definitions
+// Load files
 print, text='LOADING FODO';
 CALL, FILE="eL2L2_fodo.madx"; // calling a file with definition of a FODO cell
 
@@ -96,7 +96,7 @@ twiss,RMATRIX,dx = 0.,dy=0.0, dpy=0.0, dpx = 0.,alfx = 0.,alfy = 0.,betx=eA1_S_b
 
 MAKETHIN, SEQUENCE=eL2L2, STYLE=TEAPOT; // for tracking (at least the basic one, not PTC), one needs to convert te sequence to thin elements
 
-TRACK, ONEPASS=true,file="tracking_data/track.out",dump,onetable; //track particles in phase space
+TRACK, ONEPASS=true,file="tracking_data/track.out",dump,onetable; //request the track particles in phase space module
 // onetable flag makes sure all particles are written in a single file, instead of one file per particle
 // onepass = a single pass through the transfer line (not sure if needed but idk if it's otherwise assumed to be periodic)
 
@@ -104,7 +104,10 @@ OBSERVE, PLACE=DEL2L2_BC_D1; // setting observation point (element name) for tra
 
 n=0;
 while (n < 5000) { //generate a ton of particles to be tracked in a while loop (START command)
-start, x= 1e-5*GAUSS(), px=1e-5*GAUSS(), y= 1e-5*GAUSS(), py=1e-5*GAUSS(), T=1e-3*GAUSS(), PT=0.5e-3*GAUSS(); //initialize particle to be tracked
+//initialize particle to be tracked:
+start, x= 1e-3*GAUSS(), px=1e-5*GAUSS(), y= 1e-5*GAUSS(), py=1e-5*GAUSS(),
+	   T=5e-3*GAUSS(), //5mm bunch length initially (as per https://iopscience.iop.org/article/10.1088/1742-6596/1067/6/062023/meta)
+	   PT=0.1e-2*GAUSS(); // 0.1% energy spread after DR (aslo as per https://iopscience.iop.org/article/10.1088/1742-6596/1067/6/062023/meta)
   n=n+1;
 };
 RUN; //actual command that starts the tracking process

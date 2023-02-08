@@ -1,0 +1,65 @@
+@ NAME             %05s "TWISS"
+@ TYPE             %05s "TWISS"
+@ SEQUENCE         %07s "BC_LINE"
+@ PARTICLE         %08s "POSITRON"
+@ MASS             %le       0.00051099895
+@ CHARGE           %le                   1
+@ ENERGY           %le                1.54
+@ PC               %le         1.539999915
+@ GAMMA            %le         3013.704823
+@ KBUNCH           %le                   1
+@ BCURRENT         %le     2.686958461e-12
+@ SIGE             %le               0.001
+@ SIGT             %le                   1
+@ NPART            %le                   1
+@ EX               %le                   1
+@ EY               %le                   1
+@ ET               %le               0.001
+@ BV_FLAG          %le                   1
+@ LENGTH           %le         17.87598973
+@ ALFA             %le                   0
+@ ORBIT5           %le                  -0
+@ GAMMATR          %le                   0
+@ Q1               %le        0.1827008486
+@ Q2               %le        0.5553597035
+@ DQ1              %le                   0
+@ DQ2              %le                   0
+@ DXMAX            %le         1.052484982
+@ DYMAX            %le                   0
+@ XCOMAX           %le                   0
+@ YCOMAX           %le                   0
+@ BETXMAX          %le          47.5063601
+@ BETYMAX          %le               14.48
+@ XCORMS           %le                   0
+@ YCORMS           %le                   0
+@ DXRMS            %le        0.5387475793
+@ DYRMS            %le                   0
+@ DELTAP           %le                   0
+@ SYNCH_1          %le                   0
+@ SYNCH_2          %le                   0
+@ SYNCH_3          %le                   0
+@ SYNCH_4          %le                   0
+@ SYNCH_5          %le                   0
+@ SYNCH_6          %le                   0
+@ SYNCH_8          %le                   0
+@ DQMIN            %le                   0
+@ DQMIN_PHASE      %le                   0
+@ TITLE            %01s "s"
+@ ORIGIN           %17s "5.08.01 Darwin 64"
+@ DATE             %08s "08/02/23"
+@ TIME             %08s "12.30.10"
+* NAME               KEYWORD                             S                  L               BETX               ALFX                 DX               BETY               ALFY                 DY              ANGLE                K1L 
+$ %s                 %s                                %le                %le                %le                %le                %le                %le                %le                %le                %le                %le 
+ "BC_LINE$START"     "MARKER"                             0                  0                  8                  0                  0                  8                  0                  0                  0                  0
+ "DEL2L2_BC_D0"      "DRIFT"                              2                  2                8.5              -0.25                  0                8.5              -0.25                  0                  0                  0
+ "CAV_BC_1"          "RFCAVITY"                           5                  3             11.125             -0.625                  0             11.125             -0.625                  0                  0                  0
+ "DEL2L2_BC_D1"      "DRIFT"                            7.2                2.2              14.48               -0.9                  0              14.48               -0.9                  0                  0                  0
+ "BEL2L2_BC_B1"      "RBEND"                    8.206169638        1.006169638        16.36737792       -1.022703398       0.1908090059        14.20166213        1.155984323                  0       0.3839724354                  0
+ "DEL2L2_BC_D2"      "DRIFT"                    9.931825226        1.725655588        20.26928149       -1.238410346       0.8616759762        10.70188946       0.8720986275                  0                  0                  0
+ "BEL2L2_BC_B2"      "RBEND"                    10.93799486        1.006169638          22.821045       -1.361113744        1.052484982        7.706569776        1.882664444                  0      -0.3839724354                  0
+ "DEL2L2_BC_D3"      "DRIFT"                    13.93799486                  3        32.11272747       -1.736113744        1.052484982         1.71772103        0.113618471                  0                  0                  0
+ "BEL2L2_BC_B3"      "RBEND"                     14.9441645        1.006169638        35.64160935       -1.858817142       0.8616759762        1.856286456      -0.2410555931                  0      -0.3839724354                  0
+ "DEL2L2_BC_D4"      "DRIFT"                    16.66982009        1.725655588        42.42920163       -2.074524091       0.1908090059        4.385679362       -1.224702072                  0                  0                  0
+ "BEL2L2_BC_B4"      "RBEND"                    17.67598973        1.006169638         46.6224691       -2.197227489   -1.110223025e-16        6.613086512      -0.8238201623                  0       0.3839724354                  0
+ "DEL2L2_BC_D5"      "DRIFT"                    17.87598973                0.2         47.5063601       -2.222227489   -1.110223025e-16         6.95276826       -0.874588579                  0                  0                  0
+ "BC_LINE$END"       "MARKER"                   17.87598973                  0         47.5063601       -2.222227489   -1.110223025e-16         6.95276826       -0.874588579                  0                  0                  0
