@@ -5,26 +5,26 @@
 
 // here comes the RF cavity meant to :
 
-CAV_BC_1: RFCAVITY, L=3.0, VOLT=90.0, LAG=0, FREQ=800;
+CAV_BC_1: RFCAVITY, L=1.0, VOLT=80.0, LAG=0, FREQ=800;
 
 
 // here come the DRIFT spaces:
-ANGLE_BC = 22*pi/180; //dipole bend angle
-L_12 = 1.6; // distance between first and second (3rd and 4th) quadrupole along original beam axis (in lab frame, not along s)
+ANGLE_BC = 14*PI/180; //dipole bend angle
+L_12 = 3.6; // distance between first and second (3rd and 4th) quadrupole along original beam axis (in lab frame, not along s)
 
-DEL2L2_BC_D0: DRIFT, L = 2.0;  // drift before RF cavity
-DEL2L2_BC_D1: DRIFT, L = 2.2;  // drift after RF cavity
+DEL2L2_BC_D0: DRIFT, L = 0.5;  // drift before RF cavity
+DEL2L2_BC_D1: DRIFT, L = 1.5;  // drift after RF cavity
 DEL2L2_BC_D2: DRIFT, L = L_12/COS(ANGLE_BC); // drift dipole 1 --> dipole 2
 DEL2L2_BC_D3: DRIFT, L = 3.0; // drift between central dipoles
 DEL2L2_BC_D4: DRIFT, L = L_12/COS(ANGLE_BC); // drift dipole 3 --> dipole 4
-DEL2L2_BC_D5: DRIFT, L = 0.2; //final drift (after the chicane)
+DEL2L2_BC_D5: DRIFT, L = 0.5; //final drift (after the chicane)
 
 // here come the bending magnets:
-L_BM = 1.0; // length of a bending magnet
-BEL2L2_BC_B1: RBEND, ANGLE:= ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
+L_BM = 3.0; // length of a bending magnet
+BEL2L2_BC_B1: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
 BEL2L2_BC_B2: RBEND, ANGLE:= -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
 BEL2L2_BC_B3: RBEND, ANGLE:= -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
-BEL2L2_BC_B4: RBEND, ANGLE:= ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
+BEL2L2_BC_B4: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
 
 EL2L2_BC_ALL: LINE=(
         DEL2L2_BC_D0, // drift 0 (before RF cavity)

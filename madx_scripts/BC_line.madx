@@ -28,7 +28,7 @@ CALL, FILE='eL2L2_BC.madx'; //calling a file with Bunch Compressor Definition (a
 		// energy is in GeV by default, charge in elementary charge e: https://mad.web.cern.ch/mad/webguide/manual.html#Ch1.S8
 		// total charge cca 4.8nC, which means cca 3.0e10 positrons in a bunch
 
-BEAM,particle=positron,energy=1.54, charge = 3.0E+10,radiate= false, deltap = 0.001; 
+BEAM,particle=positron,energy=1.54,radiate= false, deltap = 0.001; 
 
 // ---------------------------------------------------------------------
 // BEAMLINE definition (sequence named BC_line)
