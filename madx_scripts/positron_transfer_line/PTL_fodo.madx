@@ -1,0 +1,34 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Positrons
+// =====================================================================
+//
+// This code is originally written by A. De Santic, C. Miraldi, now modified by Sebastian Kalos
+// It now includes more annotation with (hopefully) better explanations of what various statements mean.
+
+//
+// CONTACT: sebastian.kalos@physics.ox.ac.uk
+//
+// Description:
+// FODO CELL for straight sections, to be called and used by the script PTL.madx
+//
+// ---------------------------------------------------------------------
+
+
+DPTL_FD_D01: DRIFT, L = 3.79; // definition of a drift space element
+
+// here come quadrupoles: K1 is the normal (not skew) quadrupole coefficient in the multipole expansion
+// aka K1 is the quadrupole gradient normalized by B\rho
+// syntax of quadrupoles here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S5 
+QPTL_FD_Q01: QUADRUPOLE, K1 =  1.803923284,  L = 0.1; 
+QPTL_FD_Q02: QUADRUPOLE, K1 = -1.809617958,  L = 0.2; 
+
+// here comes a definition of the beamline portion (FODO cell) built using the elements defined above
+// syntax of a beamline here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch13
+PTL_FD: LINE=(
+	   QPTL_FD_Q01, // focusing quadrupole, L = 0.1m
+	   DPTL_FD_D01, // drift space, L = 3.79m
+	   QPTL_FD_Q02, // defocusing quadrupole
+	   DPTL_FD_D01, // drift space, L =3.79m
+	   QPTL_FD_Q01);// focusing quadrupole, L = 0.1m
+
+return;

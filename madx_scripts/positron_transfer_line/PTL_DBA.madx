@@ -1,0 +1,63 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// DBA (Double Bend Achromat)
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// here comes the RF cavity meant to provide an energy chirp:
+
+CAV_BC_1: RFCAVITY, L=1.0, VOLT=25.0, LAG=0, FREQ=800;
+
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+L_beforeRF = 1.0;
+L_afterRF = 1.0;
+a_dist = 1.0; // distance dipole-->quadrupole
+b_dist = 1.0; // distance quadrupole-->center of symmetry
+
+DPTL_BC_D0: DRIFT, L = L_beforeRF;  // drift before RF cavity
+DPTL_BC_D1: DRIFT, L = L_afterRF;  // drift after RF cavity (RF-->dipole)
+DPTL_BC_D2: DRIFT, L = a_dist; // drift dipole 1 --> quadrupole 1
+DPTL_BC_D3: DRIFT, L = b_dist; // drift quadrupole 1 --> symmetry point
+DPTL_BC_D4: DRIFT, L = b_dist; // drift symmetry point --> quadrupole 2
+DPTL_BC_D5: DRIFT, L = a_dist; // drift quadrupole 2 --> dipole 2
+DPTL_BC_D6: DRIFT, L = L_afterRF; // drift dipole 2 --> out
+
+// ---------------------------------------------------------------------
+// here come the bending magnets:
+ANGLE_BC = PI/6; //dipole bend angle
+L_BM = 1.0; // length of a bending magnet
+
+BPTL_BC_B1: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM; //
+BPTL_BC_B2: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
+
+// ---------------------------------------------------------------------
+// here come QUADRUPOLES:
+L_QF = 0.5;   //length of a focusing quadrupole
+K1_QF = 1.40;
+
+QPTL_QF1: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 1 (focusing)
+QPTL_QF2: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 1 (focusing)
+
+// ---------------------------------------------------------------------
+PTL_DBA_ALL: LINE=(
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+        BPTL_BC_B1, // bend 1 
+        DPTL_BC_D2, // drift 2 (distance a)
+        
+        QPTL_QF1,   // quadrupole 1
+
+        DPTL_BC_D3, // drift 3 (central drift 1)
+        DPTL_BC_D4, // drift 4 (centar drift 2)
+
+        QPTL_QF2,   // quadrupole 2
+
+        DPTL_BC_D5, // drift 5
+        BPTL_BC_B2, // bend 2
+        DPTL_BC_D6, // drift 6
+
+		 );
+return;

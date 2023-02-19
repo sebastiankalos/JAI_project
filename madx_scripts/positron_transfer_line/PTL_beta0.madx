@@ -1,0 +1,33 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Positrons
+// =====================================================================
+//
+// Author(s):
+// ----------
+// A. De Santis, C. Milardi
+//
+// Start date:
+// -----
+// 01 Oct 2021
+//
+// Description:
+// Starting values for different sections of the positron
+// transfer line
+//
+// ---------------------------------------------------------------------
+
+
+// turnAroundLoopCell_3B_8Q_6
+eA2_S_betx := 8.54; // from Catia optimization
+eA2_S_bety := 22.5; // from Catia optimization
+
+// turnAroundLoopCell_3B_8Q_7
+eA1_S_betx := 9.65;  // from Catia optimization
+eA1_S_bety := 25.72; // from Catia optimization
+
+
+// fodo cell
+eS1_S_betx := 13.564;// 7.533000 (v2.0.1) ; 
+eS1_S_bety := 2.329; // 25.72 (v2.0.1);
+
+return;

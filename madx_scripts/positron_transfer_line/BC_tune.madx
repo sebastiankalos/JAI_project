@@ -1,0 +1,104 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// Tunable Bunch Compressor
+// =====================================================================
+
+CALL, FILE='PTL_fodo.madx';
+
+// ---------------------------------------------------------------------
+// here comes the RF cavity meant to provide an energy chirp:
+
+CAV_BC_1: RFCAVITY, L=0.5, VOLT=10.0, LAG=0, FREQ=3000;
+// VOLT is the PEAK voltage
+
+
+// ---------------------------------------------------------------------
+// here come the bending magnets:
+ANGLE_BC := 17.25*PI/180; //dipole bend angle
+L_BM = 0.9; // length of a bending magnet
+
+BPTL_BC_B1: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM; //
+BPTL_BC_B2: RBEND, ANGLE:=  -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
+BPTL_BC_B3: RBEND, ANGLE:=  -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM; //
+BPTL_BC_B4: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
+
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+L_beforeRF = 0.5;
+L_afterRF = 0.5;
+L_1Q = 0.51;                // distance dipole 1 --> quadrupole 1 along original beam propagation axis (not along s)
+S_1Q = L_1Q/COS(ANGLE_BC); // distance dipole 1 --> quadrupole 1 along s
+L_Q2 = 0.55;                // distance quadrupole 1 --> dipole 2 along original propagation axis (not alpong s)
+S_Q2 = L_Q2/COS(ANGLE_BC); // distance quadrupole 1 --> dipole 2 along s
+L_2H = 0.7;                // distance dipole 2 --> central quadrupole along s
+
+
+DPTL_BC_D0: DRIFT, L = L_beforeRF;  // drift before RF cavity
+DPTL_BC_D1: DRIFT, L = L_afterRF;  // drift after RF cavity (RF-->dipole)
+DPTL_BC_D2: DRIFT, L = S_1Q; // drift dipole 1 --> quadrupole 1
+DPTL_BC_D3: DRIFT, L = S_Q2; // drift quadrupole 1 --> dipole 2
+DPTL_BC_D4: DRIFT, L = L_2H; // drift dipole 2 --> quadrupole 2 (central)
+DPTL_BC_D5: DRIFT, L = L_2H; // drift quadrupole 2 --> dipole 3
+DPTL_BC_D6: DRIFT, L = S_Q2; // drift dipole 3 --> quadrupole 3
+DPTL_BC_D7: DRIFT, L = S_1Q; // drift quadrupole 3 --> dipole 4
+DPTL_BC_D8: DRIFT, L = L_beforeRF;
+
+// ---------------------------------------------------------------------
+// here come QUADRUPOLES:
+L_QF = 0.5;   //length of quadrupole
+
+K1_QF = 0.364;
+K2_QF = -0.49;
+
+//K1_QF=0.1;
+//K2_QF=-0.5;
+
+QPTL_BC_QF1: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 1 
+QPTL_BC_QF2: QUADRUPOLE, K1 =  K2_QF,  L = L_QF; // central (quad 2) 
+QPTL_BC_QF3: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 3
+
+// ---------------------------------------------------------------------
+PTL_BC_TUNE_ALL: LINE=(
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+
+        BPTL_BC_B1, // bend 1 
+        DPTL_BC_D2, // drift 2 (distance a)
+        QPTL_BC_QF1,   // quadrupole 1
+        DPTL_BC_D3, // drift 3
+        BPTL_BC_B2, // bend 2
+        DPTL_BC_D4, // drift 4
+        QPTL_BC_QF2,   // quadrupole 2
+        DPTL_BC_D5, // drift 5
+        BPTL_BC_B3, // bend 3
+        DPTL_BC_D6, // drift 6
+        QPTL_BC_QF3,   // quadrupole 6
+        DPTL_BC_D7, // drift 7
+        BPTL_BC_B4, // bend 4
+        DPTL_BC_D8, // drift 8
+
+
+		 );
+return;

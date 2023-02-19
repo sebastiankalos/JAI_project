@@ -1,0 +1,147 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// Definitions of matching sections
+// =====================================================================
+//
+// This code is originally written by A. De Santic, C. Miraldi, now modified by Sebastian Kalos
+// It now includes more annotation with (hopefully) better explanations of what various statements mean
+
+// CONTACT: sebastian.kalos@physics.ox.ac.uk
+// ---------------------------------------------------------------------
+//
+// Description:
+// Matching section for optical functions between arcs and straight sections
+// for the electron transfer lines 
+//
+// ---------------------------------------------------------------------
+
+CALL, FILE="PTL_fodo.madx"; // calling a file with definition of a FODO cell
+CALL, FILE="PTL_a1.madx"; // calling a file with ARC 1 (pi arc) beamline definition
+CALL, FILE="PTL_a2.madx"; // calling a file with ARC 2 (pi/2 arc) beamline definition
+
+// ---------------------------------------------------------------------
+// Matching section A1-S for electrons (Arc 1)
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+
+DPTL_MS1_D01: DRIFT, L = 1.00; 
+DPTL_MS1_D02: DRIFT, L = 1.70;
+DPTL_MS1_D03: DRIFT, L = 1.60;
+DPTL_MS1_D04: DRIFT, L = 2.00;
+DPTL_MS1_D05: DRIFT, L = 0.44;
+
+// ---------------------------------------------------------------------
+// here come the quadrupoles: K1 is the normal (not skew) quadrupole coefficient in the multipole expansion
+// aka K1 is the quadrupole gradient normalized by B\rho. L is the length in meters
+// syntax of quadrupoles here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S5 
+
+QPTL_MS1_Q01: QUADRUPOLE, K1 =   0.111640021 ,  L = 0.2;
+QPTL_MS1_Q02: QUADRUPOLE, K1 =  -0.5531662111,  L = 0.2;
+QPTL_MS1_Q03: QUADRUPOLE, K1 =  -4.11165703  ,  L = 0.2;
+QPTL_MS1_Q04: QUADRUPOLE, K1 =   4.899652208 ,  L = 0.2;
+
+// definition of Matching Section 1 "cell" (MS1):
+PTL_MS1 : LINE=(
+	     DPTL_MS1_D01, // drift 1
+	     QPTL_MS1_Q01, // focusing quad 1
+	     DPTL_MS1_D02, // drift 2
+	     QPTL_MS1_Q02, // defocusing quad 2
+	     DPTL_MS1_D03, // drift 3
+	     QPTL_MS1_Q03, // defocusing quad 3
+	     DPTL_MS1_D04, // drift 4
+	     QPTL_MS1_Q04, // focusing quad 4
+	     DPTL_MS1_D05  // drift 5	
+	     );
+
+// definition of the full Matching Section 1 (MS1_ALL):
+// --> last (focusing) quad in FODO (see PTL_fodo.madx) 
+//		--> matching cell (MS1, defined above) 
+//	    	--> first Quad (defocusing) in Arc 1 (see PTL_a1.madx)
+
+PTL_MS1_ALL : LINE=(QPTL_FD_Q01,
+					  PTL_MS1,
+					  QPTL_A1_QD01);
+
+
+// ---------------------------------------------------------------------
+// Matching section A2-S for electrons (Arc 2)
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+
+DPTL_MS2_D01: DRIFT, L = 1.000; 
+DPTL_MS2_D02: DRIFT, L = 1.700;
+DPTL_MS2_D03: DRIFT, L = 1.600;
+DPTL_MS2_D04: DRIFT, L = 2.000;
+DPTL_MS2_D05: DRIFT, L = 0.440;
+
+// ---------------------------------------------------------------------
+// here come the QUADRUPOLES:
+
+QPTL_MS2_Q01: QUADRUPOLE, K1 =  0.1339484659,  L = 0.2; // quad 1 (focusing)
+QPTL_MS2_Q02: QUADRUPOLE, K1 =  -0.419481712,  L = 0.2; // quad 2 (defocusing)
+QPTL_MS2_Q03: QUADRUPOLE, K1 =   -4.02203837,  L = 0.2; // quad 3 (defocusing)
+QPTL_MS2_Q04: QUADRUPOLE, K1 =    4.96715663,  L = 0.2; // quad 4 (focusing)
+
+// definition of Matching Section 2 "cell" (MS1):
+PTL_MS2 : LINE=(
+	     DPTL_MS2_D01, // drift 1
+	     QPTL_MS2_Q01, // quad 1 (focusing)
+	     DPTL_MS2_D02, // drift 2
+	     QPTL_MS2_Q02, // quad 2 (defocusing)
+	     DPTL_MS2_D03, // drift 3
+	     QPTL_MS2_Q03, // quad 3 (defocusing)
+	     DPTL_MS2_D04, // drift 4
+	     QPTL_MS2_Q04, // quad 4 (focusing)
+	     DPTL_MS2_D05 // drift 5
+	     );
+
+// definition of the full Matching Section 2 (MS2_ALL):
+// --> last (focusing) quad in FODO (see PTL_fodo.madx) 
+//		--> matching cell (MS2, defined above) 
+//	    	--> first Quad (defocusing) in Arc 2 (see PTL_a2.madx)
+PTL_MS2_ALL : LINE=(QPTL_FD_Q01,
+					  PTL_MS2,
+					  QPTL_A2_QD01);
+
+
+// ---------------------------------------------------------------------
+// Matching section A2-A2 for electrons (Arc 2 to another Arc 2, each arc only has 90 degree turn)
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+
+DPTL_MS3_D01: DRIFT, L = 0.52;
+DPTL_MS3_D02: DRIFT, L = 1.45;
+DPTL_MS3_D03: DRIFT, L = 2.00;
+DPTL_MS3_D04: DPTL_MS3_D02;
+DPTL_MS3_D05: DRIFT, L = 0.52;
+
+// ---------------------------------------------------------------------
+// here come the QUADRUPOLES:
+
+QPTL_MS3_Q01: QUADRUPOLE, K1 =   5.21105464,  L = 0.2; // quad 1 (focusing)
+QPTL_MS3_Q02: QUADRUPOLE, K1 = -4.565890338,  L = 0.2; // quad 2 (defocusing)
+QPTL_MS3_Q03: QUADRUPOLE, K1 = -4.565890338,  L = 0.2; // quad 3 (de focusing)
+QPTL_MS3_Q04: QUADRUPOLE, K1 =   5.21105464,  L = 0.2; // quad 4 (focusing)
+
+// definition of Matching Section 3 "cell" (MS3):
+PTL_MS3 : LINE=(
+	     DPTL_MS3_D01, // drift 1
+	     QPTL_MS3_Q01, // quad 1 (focusing) 
+	     DPTL_MS3_D02, // drift 2
+	     QPTL_MS3_Q02, // quad 2 (defocusing)
+	     DPTL_MS3_D03, // drift 3
+	     QPTL_MS3_Q03, // quad 3 (defocusing)
+	     DPTL_MS3_D04, // drift 4
+	     QPTL_MS3_Q04, // quad 4 (focusing)
+	     DPTL_MS3_D05	 // drift 5
+	     );
+
+// definition of the full Matching Section 1 (MS1_ALL):
+// --> last (defocusing) quad in Arc 2 (see PTL_a2.madx) 
+//		--> matching cell (MS3, defined above) 
+//	    	--> first Quad (defocusing) in Arc 2 (see PTL_a2.madx)
+PTL_MS3_ALL : LINE=(QPTL_A2_QD01,
+					  PTL_MS3,
+					  QPTL_A2_QD01);
+
+return;
