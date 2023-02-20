@@ -1,0 +1,118 @@
+
+// ---------------------------------------------------------------------
+// here come the BENDING MAGNETS
+
+// definition of a BENDING magnet B1:
+//syntax for a bending magnet here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S3 
+// ANGLE is for bending angle (logically), E1 the rotation angle for the entrance pole face, E2 the rotation angle for the exit pole face
+ANGLE_RIGHT = -10*pi/180; //bend angle is 10 degrees
+BPTL_RIGHT_B1: RBEND, ANGLE:= ANGLE_RIGHT, E1:= 0.*ANGLE_RIGHT, E2:= 0.*ANGLE_RIGHT, L = 1.353;
+BPTL_RIGHT_B01: BPTL_RIGHT_B1; // make an identical copy of a bending magnet, with a different name
+BPTL_RIGHT_B03: BPTL_RIGHT_B1; // again
+
+// definition of a BENDING magnet B2:
+ANGLE_RIGHTs = -10*pi/180;    // 0.436332313
+BPTL_RIGHT_B2 : RBEND, ANGLE:= ANGLE_RIGHTs, E1:= 0.*ANGLE_RIGHTs, E2:= 0.*ANGLE_RIGHTs, L = 0.801;
+BPTL_RIGHT_B02: BPTL_RIGHT_B2;
+
+// ---------------------------------------------------------------------
+// here come the DRIFT spaces:
+
+DPTL_RIGHT_D01:  DRIFT, L:=0.280; // drift space 1
+DPTL_RIGHT_D14:  DPTL_RIGHT_D01; // drift space 14 (copy of drift 1)
+
+DPTL_RIGHT_D02:  DRIFT, L:=0.35696; // drift space 2
+DPTL_RIGHT_D13:  DPTL_RIGHT_D02; // drift space 13 (copy of drift 2)
+
+DPTL_RIGHT_D03:  DRIFT, L:=0.957875; // drift space 3
+DPTL_RIGHT_D12: DPTL_RIGHT_D03; // drift space 12 (copy of drift 3)
+
+DPTL_RIGHT_D04:  DRIFT, L:=0.05; // drift space 4
+DPTL_RIGHT_D11: DPTL_RIGHT_D04; // drift space 11 (copy of drift 4)
+
+DPTL_RIGHT_D05:  DRIFT, L:= 1.05051; // drift space 5
+DPTL_RIGHT_D10: DPTL_RIGHT_D05; // drift space 10 (copy of drift 5)
+
+DPTL_RIGHT_D06:  DRIFT, L:=    0.05  ; // drift space 6
+DPTL_RIGHT_D09: DPTL_RIGHT_D06; // drift space 9 (copy of drift 6)
+
+DPTL_RIGHT_D07:  DRIFT, L:= 1.7250328; // drift space 7
+DPTL_RIGHT_D08: DPTL_RIGHT_D07; //drift space 8 (copy of drift 7)
+
+// note the symmetry of the drift copies!
+
+// ---------------------------------------------------------------------
+// here come the quadrupoles: K1 is the normal (not skew) quadrupole coefficient in the multipole expansion
+// aka K1 is the quadrupole gradient normalized by B\rho. L is the length in meters
+// syntax of quadrupoles here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S5 
+
+// defocusing quadrupole 1:
+QPTL_RIGHT_QD1: QUADRUPOLE, K1 = -10.09346885 , L = 0.10;
+QPTL_RIGHT_QD01: QPTL_RIGHT_QD1; //make identical copy with another name
+QPTL_RIGHT_QD04: QPTL_RIGHT_QD1;
+
+// defocusing quadrupole 2:
+QPTL_RIGHT_QD2: QUADRUPOLE, K1 = -2.034805406 , L = 0.20;
+QPTL_RIGHT_QD02: QPTL_RIGHT_QD2; //make identical copy with another name
+QPTL_RIGHT_QD03: QPTL_RIGHT_QD2;
+
+// focusing quadrupole 1:
+QPTL_RIGHT_QF1: QUADRUPOLE, K1 =  7.585743579 , L = 0.20; 
+QPTL_RIGHT_QF01: QPTL_RIGHT_QF1; //make identical copy with another name
+QPTL_RIGHT_QF04: QPTL_RIGHT_QF1;
+
+// focusing quadrupole 2: 
+QPTL_RIGHT_QF2: QUADRUPOLE, K1 =  5.258636312 , L = 0.20;
+QPTL_RIGHT_QF02: QPTL_RIGHT_QF2; //make identical copy with another name
+QPTL_RIGHT_QF03: QPTL_RIGHT_QF2;
+
+// --------------------------------------------------------------------- 
+// here come sextupoles: K2 is the second coefficient in the multipole expansion.
+// syntax here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch11.S6 
+
+// focusing sextupole: 
+SPTL_RIGHT_SF1 : SEXTUPOLE, K2 = 53.0873414 , L = 0.15;
+SPTL_RIGHT_SF01: SPTL_RIGHT_SF1; //make identical copy with another name
+SPTL_RIGHT_SF02: SPTL_RIGHT_SF1;
+
+SPTL_RIGHT_SD1 : SEXTUPOLE, K2 = -86.64583321 , L = 0.15;
+SPTL_RIGHT_SD01: SPTL_RIGHT_SD1; //make identical copy with another name
+SPTL_RIGHT_SD02: SPTL_RIGHT_SD1;
+
+
+// --------------------------------------------------------------------- 
+// here comes the actual definition a "cell" within ARC 2, using the elements defined above
+// syntax of a beamline here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch13
+ PTL_BC_BEND_RIGHT: LINE=(
+		 QPTL_RIGHT_QD01, // defocusing quad 1
+ 		 DPTL_RIGHT_D01,  // drift 1
+ 		 QPTL_RIGHT_QF01, // focusing quad 1
+ 		 DPTL_RIGHT_D02,  // drift 2
+ 		 BPTL_RIGHT_B01,  // bend 1
+ 		 DPTL_RIGHT_D03,  // drift 3
+ 		 QPTL_RIGHT_QF02, // focusing quad 2
+ 		 DPTL_RIGHT_D04,  // drift 4
+ 		 SPTL_RIGHT_SF01, // focusing sextupole 1
+ 		 DPTL_RIGHT_D05,  // drift 5
+ 		 QPTL_RIGHT_QD02, // defocusing quad 2
+		 DPTL_RIGHT_D06,  // drift 6
+  		 SPTL_RIGHT_SD01, // defocusing sextupole 1
+ 		 DPTL_RIGHT_D07,  // drift 7
+ 		 BPTL_RIGHT_B02,  // bend 2
+ 		 DPTL_RIGHT_D08,  // drift 8
+  		 SPTL_RIGHT_SD02, // defocusing sextupole 2
+  		 DPTL_RIGHT_D09,  // drift 9
+ 		 QPTL_RIGHT_QD03, // defocusing quadrupole 3
+ 		 DPTL_RIGHT_D10,  // drift 10
+ 		 SPTL_RIGHT_SF02, // focusing sextupole 2
+ 		 DPTL_RIGHT_D11,  // drift 11
+ 		 QPTL_RIGHT_QF03, // focusing quadrupole 3
+ 		 DPTL_RIGHT_D12,  // drift 12
+ 		 BPTL_RIGHT_B03,  // bend 3
+ 		 DPTL_RIGHT_D13,  // drift 13
+ 		 QPTL_RIGHT_QF04, // focusing quadrupole 4
+ 		 DPTL_RIGHT_D14,  // drift 14
+ 		 QPTL_RIGHT_QD04  // defocusing quad 4
+		 );
+
+return;

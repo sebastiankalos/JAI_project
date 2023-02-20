@@ -4,6 +4,9 @@
 // =====================================================================
 
 CALL, FILE='PTL_fodo.madx';
+CALL, FILE='PTL_ms.madx';
+CALL, FILE='bend_cell_left.madx';
+CALL, FILE='bend_cell_right.madx';
 
 // ---------------------------------------------------------------------
 // here comes the RF cavity meant to provide an energy chirp:
@@ -22,15 +25,18 @@ BPTL_BC_B2: RBEND, ANGLE:=  -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
 BPTL_BC_B3: RBEND, ANGLE:=  -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM; //
 BPTL_BC_B4: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
 
+BPTL_BC_B5: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
+
 // ---------------------------------------------------------------------
 // here come the DRIFT spaces:
-L_beforeRF = 0.4;
-L_afterRF = 0.4;
+L_beforeRF = 0.2; // space which is associated with any single RF cavity (single cell)
+L_afterRF = 0.2;
 L_1Q = 0.45;                // distance dipole 1 --> quadrupole 1 along original beam propagation axis (not along s)
 S_1Q = L_1Q/COS(ANGLE_BC); // distance dipole 1 --> quadrupole 1 along s
 L_Q2 = 0.45;                // distance quadrupole 1 --> dipole 2 along original propagation axis (not alpong s)
 S_Q2 = L_Q2/COS(ANGLE_BC); // distance quadrupole 1 --> dipole 2 along s
 L_2H = 0.75;                // distance dipole 2 --> central quadrupole along s
+L_space=0.5;
 
 
 DPTL_BC_D0: DRIFT, L = L_beforeRF;  // drift before RF cavity
@@ -41,17 +47,14 @@ DPTL_BC_D4: DRIFT, L = L_2H; // drift dipole 2 --> quadrupole 2 (central)
 DPTL_BC_D5: DRIFT, L = L_2H; // drift quadrupole 2 --> dipole 3
 DPTL_BC_D6: DRIFT, L = S_Q2; // drift dipole 3 --> quadrupole 3
 DPTL_BC_D7: DRIFT, L = S_1Q; // drift quadrupole 3 --> dipole 4
-DPTL_BC_D8: DRIFT, L = L_beforeRF;
+DPTL_BC_D8: DRIFT, L = L_space;
 
 // ---------------------------------------------------------------------
 // here come QUADRUPOLES:
 L_QF = 0.3;   //length of quadrupole
 
 K1_QF = 0.356;
-K2_QF = -0.41;
-
-//K1_QF=0.1;
-//K2_QF=-0.5;
+K2_QF = -0.39;
 
 QPTL_BC_QF1: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 1 
 QPTL_BC_QF2: QUADRUPOLE, K1 =  K2_QF,  L = L_QF; // central (quad 2) 
@@ -60,11 +63,30 @@ QPTL_BC_QF3: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 3
 // ---------------------------------------------------------------------
 PTL_BC_TUNE_ALL: LINE=(
 
+        // ------- RIGHT BEND (and matching)
+        -PTL_MS2_ALL,   // matching section from ARC CELL to FODO
+        PTL_FD,         //FODO cell
+        PTL_MS2_ALL,    // matching section from FODO to ARC CELL
+        PTL_BC_BEND_RIGHT, // RIGHT bend cell
+        -PTL_MS2_ALL,      // matching section from ARC CELL to FODO 
+        PTL_FD,            // FODO cell
+
+        DPTL_BC_D8, // drift 
+
+        // ------- CAVITIES
         DPTL_BC_D0, // drift 0 (before RF cavity)
         CAV_BC_1,   // RF cavity
         DPTL_BC_D1, // drift 1 (after RF cavity)
 
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
 
+        DPTL_BC_D0, // drift 0 (before RF cavity)
+        CAV_BC_1,   // RF cavity
+        DPTL_BC_D1, // drift 1 (after RF cavity)
+
+        // ------- COMPRESSOR 1
         BPTL_BC_B1, // bend 1 
         DPTL_BC_D2, // drift 2 (distance a)
         QPTL_BC_QF1,   // quadrupole 1
@@ -80,7 +102,7 @@ PTL_BC_TUNE_ALL: LINE=(
         BPTL_BC_B4, // bend 4
         DPTL_BC_D8, // drift 8
 
-
+        // ------- COMPRESSOR 2
         BPTL_BC_B1, // bend 1 
         DPTL_BC_D2, // drift 2 (distance a)
         QPTL_BC_QF1,   // quadrupole 1
@@ -96,6 +118,7 @@ PTL_BC_TUNE_ALL: LINE=(
         BPTL_BC_B4, // bend 4
         DPTL_BC_D8, // drift 8
 
+        // ------- COMPRESSOR 3
         BPTL_BC_B1, // bend 1 
         DPTL_BC_D2, // drift 2 (distance a)
         QPTL_BC_QF1,   // quadrupole 1
@@ -110,7 +133,13 @@ PTL_BC_TUNE_ALL: LINE=(
         DPTL_BC_D7, // drift 7
         BPTL_BC_B4, // bend 4
         DPTL_BC_D8, // drift 8
+
+        PTL_FD, //FODO cell
+
+        // ------- LEFT BEND (and matching)
+        PTL_MS2_ALL,      // matching section from FODO to ARC CELL
+        PTL_BC_BEND_LEFT, // LEFT bend cell
+        -PTL_MS2_ALL,     // matching section from ARC CELL to FODO 
         
-
 	);
 return;

@@ -108,9 +108,9 @@ BPTL_A1_B02: BPTL_A1_B2;
  		 DPTL_A1_D03,  // drift 3
  		 QPTL_A1_QF02, // focusing quad 2
  		 DPTL_A1_D04,  // drift 4
- 		 //SPTL_A1_SF01, // focusing sextupole 1
+ 		 SPTL_A1_SF01, // focusing sextupole 1
  		 DPTL_A1_D05,  // drift 5
- 		 //SPTL_A1_SD01, // defocusing sextupole 1
+ 		 SPTL_A1_SD01, // defocusing sextupole 1
  		 DPTL_A1_D06,  // drift 6
  		 QPTL_A1_QD02, // defocusing quad 2
  		 DPTL_A1_D07,  // drift 7
@@ -118,9 +118,9 @@ BPTL_A1_B02: BPTL_A1_B2;
  		 DPTL_A1_D08,  // drift 8
  		 QPTL_A1_QD03, // defocusing quad 3
  		 DPTL_A1_D09,  // drift 9
- 		 //SPTL_A1_SD02, // defocusing sextupole 2
+ 		 SPTL_A1_SD02, // defocusing sextupole 2
  		 DPTL_A1_D10,  // drift 10
- 		 //SPTL_A1_SF02, // focusing sextupole 2
+ 		 SPTL_A1_SF02, // focusing sextupole 2
  		 DPTL_A1_D11,  // drift 11
  		 QPTL_A1_QF03, // focusing quad 3
  		 DPTL_A1_D12,  // drift 12

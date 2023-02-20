@@ -110,19 +110,19 @@ SPTL_A2_SD02: SPTL_A2_SD1;
  		 DPTL_A2_D03,  // drift 3
  		 QPTL_A2_QF02, // focusing quad 2
  		 DPTL_A2_D04,  // drift 4
- 		 //SPTL_A2_SF01, // focusing sextupole 1
+ 		 SPTL_A2_SF01, // focusing sextupole 1
  		 DPTL_A2_D05,  // drift 5
  		 QPTL_A2_QD02, // defocusing quad 2
 		 DPTL_A2_D06,  // drift 6
-  		 //SPTL_A2_SD01, // defocusing sextupole 1
+  		 SPTL_A2_SD01, // defocusing sextupole 1
  		 DPTL_A2_D07,  // drift 7
  		 BPTL_A2_B02,  // bend 2
  		 DPTL_A2_D08,  // drift 8
-  		 //SPTL_A2_SD02, // defocusing sextupole 2
+  		 SPTL_A2_SD02, // defocusing sextupole 2
   		 DPTL_A2_D09,  // drift 9
  		 QPTL_A2_QD03, // defocusing quadrupole 3
  		 DPTL_A2_D10,  // drift 10
- 		 //SPTL_A2_SF02, // focusing sextupole 2
+ 		 SPTL_A2_SF02, // focusing sextupole 2
  		 DPTL_A2_D11,  // drift 11
  		 QPTL_A2_QF03, // focusing quadrupole 3
  		 DPTL_A2_D12,  // drift 12
