@@ -41,6 +41,7 @@ CALL, FILE='PTL_beta0.madx'; //calling a file with Beta-function starting points
 print, text='LOADING BUNCH COMPRESSOR';
 CALL, FILE='PTL_BC.madx'; //calling a file with Dipole Chicane Bunch Compressor Definition (as written by Sebastian Kalos)
 CALL, FILE='PTL_DBA.madx'; //calling a file with Double Bend Achromat (DBA) Bunch Compressor Definition (as written by Sebastian Kalos)
+CALL, FILE='BC_tune.madx';
 
 // ---------------------------------------------------------------------
 // BEAM definition
@@ -66,7 +67,8 @@ PTL: LINE=(3*PTL_FD,     // 3* fodo cell, as defined in the PTL_fodo.madx file (
 	     	 PTL_A2,       // 90 degree arc again ; ARC 2, defined in PTL_a2.madx file (called above)
 
 			 //PTL_BC_ALL	 // BUNCH COMPRESSOR (by Sebastian Kalos, see PTL_BC.madx)
-			 PTL_DBA_ALL   // Double bend achromat (by Sebastian Kalos, see PTL_DBA.madx) 
+			 //PTL_DBA_ALL   // Double bend achromat (by Sebastian Kalos, see PTL_DBA.madx) 
+			 PTL_BC_TUNE_ALL
 			 );
 
 // ---------------------------------------------------------------------
@@ -78,7 +80,7 @@ print, text='MAKING SURVEY';
 use, sequence=PTL;
 
 // while saving the twiss parameters later, only give columns containing the following information (disregard other):
-select, flag=twiss,sequence=PTL,column=name,keyword,s,l,betx,alfx,dx,bety,alfy,dy,angle,K1L;
+select, flag=twiss,sequence=PTL,column=name,keyword,s,l,betx,alfx,dx,bety,alfy,dy,angle,K1L,ddx;
 
 // savebeta documentation: https://mad.web.cern.ch/mad/webguide/manual.html#Ch20.S4
 // as far as I can tell, this saves optical functions at the start (#S) of the sequence. Not entirely sure though

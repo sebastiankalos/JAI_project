@@ -24,6 +24,7 @@ CALL, FILE='BC_tune.madx'; //calling a file with Bunch Compressor Definition (as
 
 print, text='LOADING FODO CELL';
 CALL, FILE='PTL_fodo.madx';
+CALL, FILE='PTL_a1.madx';
 
 // ---------------------------------------------------------------------
 // BEAM definition
