@@ -90,7 +90,7 @@ savebeta,label=tl_start,place=#S,sequence=eL2L2;
 // better to see the documentation, I'm keeping it in there.
 // dx is initial value for horizonatl dispersion, dy vertical dispersion, dpx and dpy are relative initial momentum spread
 // alfx,alfy,betx,bety are initial values of alpha and beta functions ; beta has initial values read from file eL2L2_beta0.madx
-twiss,RMATRIX,dx = 0.,dy=0.0, dpy=0.0, dpx = 0.,alfx = 0.,alfy = 0.,betx=eA1_S_betx,bety=eA1_S_bety,
+twiss,RMATRIX,dx = 0.,dy=0.0, dpy=0.0, dpx = 0.,alfx = 0.,alfy = 0.,betx=eS1_S_betx,bety=eS1_S_bety,
 	     	  file="eL2L2.out",save; // save twiss parameters in file "eL2L2.out"
 
 // ---------------------------------------------------------------------

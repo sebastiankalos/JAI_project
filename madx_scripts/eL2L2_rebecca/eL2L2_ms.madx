@@ -1,0 +1,121 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// =====================================================================
+//
+// Author(s):
+// ----------
+// A. De Santis, C. Milardi
+//
+// Start date:
+// -----
+// 04 Feb 2022
+//
+// Description:
+// Mathcing section for optical functions between arcs and straight sections
+// for the electron transfer lines 
+//
+// ---------------------------------------------------------------------
+
+CALL, FILE="eL2L2_fodo.madx"; // FODO cell for straight sections
+CALL, FILE="eL2L2_a1.madx"; // pi arc
+CALL, FILE="eL2L2_a2.madx"; // pi arc
+
+
+
+DEL2L2_MS1_D01: DRIFT, L = 1.00;
+DEL2L2_MS1_D02: DRIFT, L = 1.70;
+DEL2L2_MS1_D03: DRIFT, L = 1.60;
+DEL2L2_MS1_D04: DRIFT, L = 2.00;
+DEL2L2_MS1_D05: DRIFT, L = 0.44;
+
+QEL2L2_MS1_Q01: QUADRUPOLE, K1 =   0.111640021 ,  L = 0.2;
+QEL2L2_MS1_Q02: QUADRUPOLE, K1 =  -0.5531662111,  L = 0.2;
+QEL2L2_MS1_Q03: QUADRUPOLE, K1 =  -4.11165703  ,  L = 0.2;
+QEL2L2_MS1_Q04: QUADRUPOLE, K1 =   4.899652208 ,  L = 0.2;
+
+// -----
+// Matching section A1-S for electrons
+// -----
+
+EL2L2_MS1 : LINE=(
+	     DEL2L2_MS1_D01,
+	     QEL2L2_MS1_Q01,
+	     DEL2L2_MS1_D02,
+	     QEL2L2_MS1_Q02,
+	     DEL2L2_MS1_D03,
+	     QEL2L2_MS1_Q03,
+	     DEL2L2_MS1_D04,
+	     QEL2L2_MS1_Q04,
+	     DEL2L2_MS1_D05
+	     );
+
+
+EL2L2_MS1_ALL : LINE=(QEL2L2_FD_Q01,EL2L2_MS1,QEL2L2_A1_QD01);
+
+
+// -----
+// Matching section A2-S for electrons
+// -----
+
+
+DEL2L2_MS2_D01: DRIFT, L = 1.000;
+DEL2L2_MS2_D02: DRIFT, L = 1.700;
+DEL2L2_MS2_D03: DRIFT, L = 1.600;
+DEL2L2_MS2_D04: DRIFT, L = 2.000;
+DEL2L2_MS2_D05: DRIFT, L = 0.440;
+
+QEL2L2_MS2_Q01: QUADRUPOLE, K1 =  0.1339484659,  L = 0.2;
+QEL2L2_MS2_Q02: QUADRUPOLE, K1 =  -0.419481712,  L = 0.2;
+QEL2L2_MS2_Q03: QUADRUPOLE, K1 =   -4.02203837,  L = 0.2;
+QEL2L2_MS2_Q04: QUADRUPOLE, K1 =    4.96715663,  L = 0.2;
+
+
+EL2L2_MS2 : LINE=(
+	     DEL2L2_MS2_D01,
+	     QEL2L2_MS2_Q01,
+	     DEL2L2_MS2_D02,
+	     QEL2L2_MS2_Q02,
+	     DEL2L2_MS2_D03,
+	     QEL2L2_MS2_Q03,
+	     DEL2L2_MS2_D04,
+	     QEL2L2_MS2_Q04,
+	     DEL2L2_MS2_D05
+	     );
+
+
+EL2L2_MS2_ALL : LINE=(QEL2L2_FD_Q01,EL2L2_MS2,QEL2L2_A2_QD01);
+
+
+
+// =====
+// MS3: // Matching section A2-A2 for electrons
+// =====
+
+
+DEL2L2_MS3_D01: DRIFT, L = 0.52;
+DEL2L2_MS3_D02: DRIFT, L = 1.45;
+DEL2L2_MS3_D03: DRIFT, L = 2.00;
+DEL2L2_MS3_D04: DEL2L2_MS3_D02;
+DEL2L2_MS3_D05: DRIFT, L = 0.52;
+
+QEL2L2_MS3_Q01: QUADRUPOLE, K1 =   5.21105464,  L = 0.2;
+QEL2L2_MS3_Q02: QUADRUPOLE, K1 = -4.565890338,  L = 0.2;
+QEL2L2_MS3_Q03: QUADRUPOLE, K1 = -4.565890338,  L = 0.2;
+QEL2L2_MS3_Q04: QUADRUPOLE, K1 =   5.21105464,  L = 0.2;
+
+EL2L2_MS3 : LINE=(
+	     DEL2L2_MS3_D01,
+	     QEL2L2_MS3_Q01,
+	     DEL2L2_MS3_D02,
+	     QEL2L2_MS3_Q02,
+	     DEL2L2_MS3_D03,
+	     QEL2L2_MS3_Q03,
+	     DEL2L2_MS3_D04,
+	     QEL2L2_MS3_Q04,
+	     DEL2L2_MS3_D05	     
+	     );
+
+
+EL2L2_MS3_ALL : LINE=(QEL2L2_A2_QD01,EL2L2_MS3,QEL2L2_A2_QD01);
+
+

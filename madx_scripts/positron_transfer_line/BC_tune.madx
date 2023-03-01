@@ -86,6 +86,8 @@ PTL_BC_TUNE_ALL: LINE=(
         CAV_BC_1,   // RF cavity
         DPTL_BC_D1, // drift 1 (after RF cavity)
 
+        DPTL_BC_D8, // drift 
+
         // ------- COMPRESSOR 1
         BPTL_BC_B1, // bend 1 
         DPTL_BC_D2, // drift 2 (distance a)

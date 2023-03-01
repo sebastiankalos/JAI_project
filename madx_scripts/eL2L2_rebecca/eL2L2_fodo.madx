@@ -1,0 +1,43 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons
+// =====================================================================
+//
+// Author(s):
+// ----------
+// A. De Santis, C. Milardi
+//
+// Start date:
+// -----
+// 04 Feb 2022
+//
+// Description:
+// FODO CELL for straight sections
+//
+//
+// ---------------------------------------------------------------------
+
+
+DEL2L2_FD_D01: DRIFT, L = 3.79;
+
+QEL2L2_FD_Q01: QUADRUPOLE, K1 =  1.803923284,  L = 0.1;
+QEL2L2_FD_Q02: QUADRUPOLE, K1 = -1.809617958,  L = 0.2;
+
+EL2L2_FD: LINE=(
+	   QEL2L2_FD_Q01,
+	   DEL2L2_FD_D01,
+	   QEL2L2_FD_Q02,
+	   DEL2L2_FD_D01,
+	   QEL2L2_FD_Q01);
+
+// v2.0.1
+//DEL2L2_FD_D01: DRIFT, L = 4.8;
+//
+//QEL2L2_FD_Q01: QUADRUPOLE, K1 = -0.6989048174,  L = 0.1;
+//QEL2L2_FD_Q02: QUADRUPOLE, K1 =  0.8151813871,  L = 0.2;
+//
+//EL2L2_FD: LINE=(
+//	   QEL2L2_FD_Q01,
+//	   DEL2L2_FD_D01,
+//	   QEL2L2_FD_Q02,
+//	   DEL2L2_FD_D01,
+//	   QEL2L2_FD_Q01);

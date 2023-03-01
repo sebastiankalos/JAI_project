@@ -1,0 +1,169 @@
+
+  ++++++++++++++++++++++++++++++++++++++++++++
+  +     MAD-X 5.07.00  (64 bit, Windows)     +
+  + Support: mad@cern.ch, http://cern.ch/mad +
+  + Release   date: 2021.05.03               +
+  + Execution date: 2022.05.20 10:33:21      +
+  ++++++++++++++++++++++++++++++++++++++++++++
+
+// =====================================================================
+
+// FCC_ee: Transfer Line for Electrons eL2L2
+
+// =====================================================================
+
+//
+
+// Author(s):
+
+// ----------
+
+// A. De Santis, C. Milardi
+
+//
+
+// Start date:
+
+// -----
+
+// 01 Feb 2022
+
+//
+
+// ---------------------------------------------------------------------
+
+TITLE, S="FCC_ee: eL1L2";
+
+
+
+// =====
+
+// Options
+
+// =====
+
+option,echo = false,warn = true;
+
+LOADING FODO
+LOADING ARC1
+LOADING ARC2
+++++++ info: anglebc redefined
+++++++ info: anglebcs redefined
+LOADING MATCHING
+++++++ info: element redefined: del2l2_fd_d01
+++++++ info: element redefined: qel2l2_fd_q01
+++++++ info: element redefined: qel2l2_fd_q02
+++++++ warning: macro redefined: el2l2_fd
+++++++ info: lbc redefined
+++++++ info: anglebc redefined
+++++++ info: element redefined: bel2l2_a1_b1
+++++++ info: element redefined: bel2l2_a1_b01
+++++++ info: element redefined: bel2l2_a1_b03
+++++++ info: lbcs redefined
+++++++ info: anglebcs redefined
+++++++ info: element redefined: bel2l2_a1_b2
+++++++ info: element redefined: bel2l2_a1_b02
+++++++ info: element redefined: del2l2_a1_d01
+++++++ info: element redefined: del2l2_a1_d14
+++++++ info: element redefined: del2l2_a1_d02
+++++++ info: element redefined: del2l2_a1_d13
+++++++ info: element redefined: del2l2_a1_d03
+++++++ info: element redefined: del2l2_a1_d12
+++++++ info: element redefined: del2l2_a1_d04
+++++++ info: element redefined: del2l2_a1_d11
+++++++ info: element redefined: del2l2_a1_d05
+++++++ info: element redefined: del2l2_a1_d10
+++++++ info: element redefined: del2l2_a1_d06
+++++++ info: element redefined: del2l2_a1_d09
+++++++ info: element redefined: del2l2_a1_d07
+++++++ info: element redefined: del2l2_a1_d08
+++++++ info: element redefined: qel2l2_a1_qd1
+++++++ info: element redefined: qel2l2_a1_qd01
+++++++ info: element redefined: qel2l2_a1_qd04
+++++++ info: element redefined: qel2l2_a1_qd2
+++++++ info: element redefined: qel2l2_a1_qd02
+++++++ info: element redefined: qel2l2_a1_qd03
+++++++ info: element redefined: qel2l2_a1_qf1
+++++++ info: element redefined: qel2l2_a1_qf01
+++++++ info: element redefined: qel2l2_a1_qf04
+++++++ info: element redefined: qel2l2_a1_qf2
+++++++ info: element redefined: qel2l2_a1_qf02
+++++++ info: element redefined: qel2l2_a1_qf03
+++++++ info: element redefined: sel2l2_a1_sf1
+++++++ info: element redefined: sel2l2_a1_sf01
+++++++ info: element redefined: sel2l2_a1_sf02
+++++++ info: element redefined: sel2l2_a1_sd1
+++++++ info: element redefined: sel2l2_a1_sd01
+++++++ info: element redefined: sel2l2_a1_sd02
+++++++ warning: macro redefined: el2l2_a1_tbacell
+++++++ warning: macro redefined: el2l2_a1
+++++++ info: anglebc redefined
+++++++ info: element redefined: bel2l2_a2_b1
+++++++ info: element redefined: bel2l2_a2_b01
+++++++ info: element redefined: bel2l2_a2_b03
+++++++ info: anglebcs redefined
+++++++ info: element redefined: bel2l2_a2_b2
+++++++ info: element redefined: bel2l2_a2_b02
+++++++ info: element redefined: del2l2_a2_d01
+++++++ info: element redefined: del2l2_a2_d14
+++++++ info: element redefined: del2l2_a2_d02
+++++++ info: element redefined: del2l2_a2_d13
+++++++ info: element redefined: del2l2_a2_d03
+++++++ info: element redefined: del2l2_a2_d12
+++++++ info: element redefined: del2l2_a2_d04
+++++++ info: element redefined: del2l2_a2_d11
+++++++ info: element redefined: del2l2_a2_d05
+++++++ info: element redefined: del2l2_a2_d10
+++++++ info: element redefined: del2l2_a2_d06
+++++++ info: element redefined: del2l2_a2_d09
+++++++ info: element redefined: del2l2_a2_d07
+++++++ info: element redefined: del2l2_a2_d08
+++++++ info: element redefined: qel2l2_a2_qd1
+++++++ info: element redefined: qel2l2_a2_qd01
+++++++ info: element redefined: qel2l2_a2_qd04
+++++++ info: element redefined: qel2l2_a2_qd2
+++++++ info: element redefined: qel2l2_a2_qd02
+++++++ info: element redefined: qel2l2_a2_qd03
+++++++ info: element redefined: qel2l2_a2_qf1
+++++++ info: element redefined: qel2l2_a2_qf01
+++++++ info: element redefined: qel2l2_a2_qf04
+++++++ info: element redefined: qel2l2_a2_qf2
+++++++ info: element redefined: qel2l2_a2_qf02
+++++++ info: element redefined: qel2l2_a2_qf03
+++++++ info: element redefined: sel2l2_a2_sf1
+++++++ info: element redefined: sel2l2_a2_sf01
+++++++ info: element redefined: sel2l2_a2_sf02
+++++++ info: element redefined: sel2l2_a2_sd1
+++++++ info: element redefined: sel2l2_a2_sd01
+++++++ info: element redefined: sel2l2_a2_sd02
+++++++ warning: macro redefined: el2l2_a2_tbacell
+++++++ warning: macro redefined: el2l2_a2
+LOADING BETA0
+enter Twiss module
+  
+open line - error with deltap:   0.000000E+00
+initial orbit vector:   0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00
+final orbit vector:     0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00
+
+++++++ table: summ
+
+            length             orbit5               alfa            gammatr 
+       444.1932647                 -0                  0                  0 
+
+                q1                dq1            betxmax              dxmax 
+       19.14582966                  0        22.92767511       0.2898025286 
+
+             dxrms             xcomax             xcorms                 q2 
+      0.1039421814                  0                  0        14.33919676 
+
+               dq2            betymax              dymax              dyrms 
+                 0        25.53490061                  0                  0 
+
+            ycomax             ycorms             deltap            synch_1 
+                 0                  0                  0                  0 
+
+           synch_2            synch_3            synch_4            synch_5 
+                 0                  0                  0                  0 
+
+           synch_6            synch_8             nflips 
+                 0                  0                  0 

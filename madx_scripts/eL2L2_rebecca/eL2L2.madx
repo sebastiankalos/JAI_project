@@ -1,0 +1,101 @@
+// =====================================================================
+// FCC_ee: Transfer Line for Electrons eL2L2
+// =====================================================================
+//
+// Author(s):
+// ----------
+// A. De Santis, C. Milardi
+//
+// Start date:
+// -----
+// 01 Feb 2022
+//
+// ---------------------------------------------------------------------
+TITLE, S="FCC_ee: eL1L2";
+
+// =====
+// Options
+// =====
+option,echo = false,warn = true;
+
+// =====
+// Elements definitions
+// =====
+print, text='LOADING FODO';
+CALL, FILE="eL2L2_fodo.madx"; // FODO cell for straight sections
+
+print, text='LOADING ARC1';
+CALL, FILE="eL2L2_a1.madx"; // pi arc
+print, text='LOADING ARC2';
+CALL, FILE="eL2L2_a2.madx"; // p1/2 arc (from tLoop_6)
+print, text='LOADING MATCHING';
+call,file="eL2L2_ms.madx";
+//CALL, FILE="tl_matching.madx";
+print, text='LOADING BETA0';
+CALL, FILE='eL2L2_beta0.madx'; //starting points
+print, text='LOADING BUNCH COMPRESSOR';
+CALL, FILE='eL2L2_BC.madx'; //starting points
+
+
+BEAM,particle=positron,energy=1.54, charge = 3.4E+10,
+      radiate= false, deltap = 0.003;
+
+eA1_S: marker;
+eA1_E: marker;
+// 
+// 
+eMS1_S: marker;
+eMS1_E: marker;
+// 3*EL2L2_FD, // fodo cell
+//       	     eMS1_S, // MS1 start
+//	     QEL2L2_FD_Q01,EL2L2_MS1,QEL2L2_A1_QD01,
+//	     eMS1_E, //MS1 end
+//	     EL2L2_A1, // pi arc
+
+
+eL2L2: LINE=(
+	     -EL2L2_MS1_ALL,
+	     42*EL2L2_FD,
+	     EL2L2_MS2_ALL, 
+	     EL2L2_A2, // 90 degree arc
+	     EL2L2_MS3_ALL,
+	     EL2L2_A2,
+
+		 // ------- here's what sebastina added:
+
+		-EL2L2_MS2_ALL,   // matching section from ARC CELL to FODO
+        EL2L2_FD,         //FODO cell
+		 
+		 EL2L2_BC_TUNE_ALL,
+
+		//EL2L2_FD, //FODO cell
+        //EL2L2_MS2_ALL,    // matching section from FODO to ARC CELL
+        //EL2L2_BC_BEND_RIGHT, // RIGHT bend cell
+        //EL2L2_MS3_ALL,      // matching section from ARC CELL to FODO 
+        //EL2L2_BC_BEND_LEFT, // LEFT bend cell
+        //-EL2L2_MS2_ALL,     // matching section from ARC CELL to FODO 
+		 );
+
+// ---------------------------------------------------------------------
+// Survey of Twiss parameters
+print, text='MAKING SURVEY';
+
+//load the sequence PTL defined above (without the USE command, nothing will run)
+//better explanation: https://mad.web.cern.ch/mad/webguide/manual.html#Ch4.S10
+use, sequence=eL2L2;
+
+// while saving the twiss parameters later, only give columns containing the following information (disregard other):
+select, flag=twiss,sequence=eL2L2,column=name,keyword,s,l,betx,alfx,dx,bety,alfy,dy,angle,K1L,ddx,dpy,dpx;
+
+// savebeta documentation: https://mad.web.cern.ch/mad/webguide/manual.html#Ch20.S4
+// as far as I can tell, this saves optical functions at the start (#S) of the sequence. Not entirely sure though
+savebeta,label=tl_start,place=#S,sequence=eL2L2; 
+
+// now, calculate the lattice functions using the TWISS command, using the PTL sequence (USE call above is enough)
+// documentation here: https://mad.web.cern.ch/mad/webguide/manual.html#Ch20
+// not sure what RMATRIX stands for: "If this flag is used the the one-turn map at the location of every element is calculated and prepared for storage in the twiss table".
+// better to see the documentation, I'm keeping it in there.
+// dx is initial value for horizonatl dispersion, dy vertical dispersion, dpx and dpy are relative initial momentum spread
+// alfx,alfy,betx,bety are initial values of alpha and beta functions ; beta has initial values read from file PTL_beta0.madx
+twiss,RMATRIX,CHROM=true,dx = 0.,dy=0.0, dpy=0.0, dpx = 0.,alfx = 0.,alfy = 0.,betx=eA1_S_betx,bety=eA1_S_bety,
+	     	  file="eL2L2.out",save; // save twiss parameters in file "PTL.out"
