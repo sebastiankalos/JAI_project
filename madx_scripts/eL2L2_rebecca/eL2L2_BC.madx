@@ -11,14 +11,14 @@ CALL, FILE='eL2L2_BC_rightbend.madx';
 // ---------------------------------------------------------------------
 // here comes the RF cavity meant to provide an energy chirp:
 
-CAV_BC_1: RFCAVITY, L=0.5, VOLT=10.0, LAG=0, FREQ=3000;
+CAV_BC_1: RFCAVITY, L=0.35, VOLT=10.0, LAG=0, FREQ=3000;
 // VOLT is the PEAK voltage
 
 
 // ---------------------------------------------------------------------
 // here come the bending magnets:
 ANGLE_BC := 12.5*PI/180; //dipole bend angle
-L_BM = 1.5; // length of a bending magnet
+L_BM = 1.48; // length of a bending magnet
 
 BEL2L2_BC_B1: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM; //
 BEL2L2_BC_B2: RBEND, ANGLE:=  -ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
@@ -29,8 +29,8 @@ BEL2L2_BC_B5: RBEND, ANGLE:=  ANGLE_BC, E1:= 0., E2:= 0., L = L_BM;
 
 // ---------------------------------------------------------------------
 // here come the DRIFT spaces:
-L_beforeRF = 0.2; // space which is associated with any single RF cavity (single cell)
-L_afterRF = 0.2;
+L_beforeRF = 0.4; // space which is associated with any single RF cavity (single cell)
+L_afterRF = 0.4;
 
 L_1Q = 0.45;                // distance dipole 1 --> quadrupole 1 along original beam propagation axis (not along s)
 S_1Q = L_1Q/COS(ANGLE_BC); // distance dipole 1 --> quadrupole 1 along s
@@ -55,38 +55,55 @@ DEL2L2_BC_D6: DRIFT, L = S_Q2; // drift dipole 3 --> quadrupole 3
 DEL2L2_BC_D7: DRIFT, L = S_1Q; // drift quadrupole 3 --> dipole 4
 DEL2L2_BC_D8: DRIFT, L = L_space;
 
-DEL2L2_BC_D001: DRIFT, L = L_space;
-DEL2L2_BC_D002: DRIFT, L = L_space;
-DEL2L2_BC_D003: DRIFT, L = L_space;
-DEL2L2_BC_D004: DRIFT, L = L_space;
-DEL2L2_BC_D005: DRIFT, L = L_space;
+DEL2L2_BC_D001: DRIFT, L = 0.01;
+DEL2L2_BC_D002: DRIFT, L = 0.01;
+DEL2L2_BC_D003: DRIFT, L = 0.01;
+DEL2L2_BC_D004: DRIFT, L = 0.01;
+DEL2L2_BC_D005: DRIFT, L = 0.01;
+
+
+FODO_space=1.1;
+FODO_D1: DRIFT, L=FODO_space;
+FODO_D2: DRIFT, L=FODO_space;
+FODO_D3: DRIFT, L=FODO_space;
 
 // ---------------------------------------------------------------------
 // here come QUADRUPOLES:
 L_QF = 0.3;   //length of quadrupole
 
 K1_QF = 1.1;
-K2_QF = -1.95;
+K2_QF = -1.92;
 
 QEL2L2_BC_QF1: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 1 
 QEL2L2_BC_QF2: QUADRUPOLE, K1 =  K2_QF,  L = L_QF; // central (quad 2) 
 QEL2L2_BC_QF3: QUADRUPOLE, K1 =  K1_QF,  L = L_QF; // quad 3
 
+FODO_QF: QUADRUPOLE, K1=1.5,  L = L_QF;
+FODO_QD: QUADRUPOLE, K1=-1.5, L = L_QF;
+
 // ---------------------------------------------------------------------
 EL2L2_BC_TUNE_ALL: LINE=(
 
         // ------- CAVITIES
+        
         DEL2L2_BC_D0, // drift 0 (before RF cavity)
         CAV_BC_1,   // RF cavity 1
         DEL2L2_BC_D1, // drift 1 (after RF cavity)
+
+        DEL2L2_BC_D0, // drift 0 (before RF cavity)
         CAV_BC_1,   // RF cavity 2
         DEL2L2_BC_D01, // drift 1 (after RF cavity)
+
+        DEL2L2_BC_D0, // drift 0 (before RF cavity)
         CAV_BC_1,   // RF cavity 3
         DEL2L2_BC_D02, // drift 1 (after RF cavity)
-        
-        DEL2L2_BC_D8, // drift
-        EL2L2_FD,     // FODO cell
-        DEL2L2_BC_D8, // drift 
+
+        DEL2L2_BC_D001, //observation 1
+
+        // ------- FODO CELL
+        EL2L2_FD,
+
+        DEL2L2_BC_D02, // drift
 
         // ------- COMPRESSOR 1
         BEL2L2_BC_B1, // bend 1 
@@ -104,11 +121,34 @@ EL2L2_BC_TUNE_ALL: LINE=(
         BEL2L2_BC_B4, // bend 4
         DEL2L2_BC_D8, // drift 8
 
-        DEL2L2_BC_D001,
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
 
-        DEL2L2_BC_D8, // drift
-        EL2L2_FD,     // FODO cell
-        DEL2L2_BC_D8, // drift 
+        FODO_QD,
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        FODO_QF,
+
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+
+        FODO_QD,
+
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+
+        DEL2L2_BC_D002, //observation 2
 
         // ------- COMPRESSOR 2
         BEL2L2_BC_B1, // bend 1 
@@ -126,11 +166,34 @@ EL2L2_BC_TUNE_ALL: LINE=(
         BEL2L2_BC_B4, // bend 4
         DEL2L2_BC_D8, // drift 8
 
-        DEL2L2_BC_D002,
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
 
-        DEL2L2_BC_D8, // drift
-        EL2L2_FD,     // FODO cell
-        DEL2L2_BC_D8, // drift 
+        FODO_QD,
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        FODO_QF,
+
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+
+        FODO_QD,
+
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+        DEL2L2_BC_D02, // drift
+
+        DEL2L2_BC_D003, // observation 3
 
         // ------- COMPRESSOR 3
         BEL2L2_BC_B1, // bend 1 
@@ -147,5 +210,8 @@ EL2L2_BC_TUNE_ALL: LINE=(
         DEL2L2_BC_D7, // drift 7
         BEL2L2_BC_B4, // bend 4
         DEL2L2_BC_D8, // drift 8
+
+        DEL2L2_BC_D004 // observation
+
 	);
 return;
